@@ -104,36 +104,36 @@ class Layout:
                 className='m-3')])
         return _activity
 
-    load_indicator_reload = dbc.Spinner(html.Div(id='loading'),
+    load_indicator_gpx = dbc.Spinner(html.Div(id='loading-gpx'),
                                         spinner_style={'width': '5rem', 'height': '5rem'},
                                         fullscreen=False,
                                         color='success')
 
-    load_button = dbc.Button(
-        children=['Load data', load_indicator_reload],
+    load_button_gpx = dbc.Button(
+        children=['Load data GPX', load_indicator_gpx],
         n_clicks=0,
         color='success',
-        id='load-data',
+        id='load-data-gpx',
         type='submit',
         className='m-4')
 
-    # load_indicator_refresh = dbc.Spinner(html.Div(id='refresh'),
-    #                                      spinner_style={'width': '5rem', 'height': '5rem'},
-    #                                      fullscreen=False,
-    #                                      color='success')
+    load_indicator_csv = dbc.Spinner(html.Div(id='loading-csv'),
+                                         spinner_style={'width': '5rem', 'height': '5rem'},
+                                         fullscreen=False,
+                                         color='success')
 
-    # refresh_button = dbc.Button(
-    #     children=['Refresh data', load_indicator_refresh],
-    #     n_clicks=0,
-    #     color='success',
-    #     id='refresh-data',
-    #     type='submit',
-    #     className='m-4')
+    load_button_csv = dbc.Button(
+        children=['Load data CSV', load_indicator_csv],
+        n_clicks=0,
+        color='success',
+        id='load-data-csv',
+        type='submit',
+        className='m-4')
 
     def main_layout(self):
         _main = html.Div([
             dbc.Row([
-                dbc.Col([self.metricsl(), self.activityl(), self.load_button],
+                dbc.Col([self.metricsl(), self.activityl(), self.load_button_gpx, self.load_button_csv],
                         width=2),
                 dbc.Col([self.fig()], width=8),
                 dbc.Col([self.interval()],
