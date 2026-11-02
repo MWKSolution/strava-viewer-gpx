@@ -13,7 +13,7 @@ def get_callbacks(app, data):
                   Input('load-data-gpx', 'n_clicks'),
                   prevent_initial_call=True)
     def load_data_gpx(n_clicks):
-        """Callback when clicking 'Reload all data' button."""
+        """Callback when clicking 'Load GPX data' button."""
         if n_clicks > 0:
             data.load_dataGPX()
             metrics, activities, year = data.get_optionsDATA()
@@ -29,10 +29,10 @@ def get_callbacks(app, data):
                   Input('load-data-csv', 'n_clicks'),
                   prevent_initial_call=True)
     def load_data_csv(n_clicks):
-        """Callback when clicking 'Reload all data' button."""
+        """Callback when clicking 'Load CSV data' button."""
         if n_clicks > 0:
             # TODO # do nothing for now
-            # data.refresh_dataGPX()
+            data.load_dataCSV()
             metrics, activities, year = data.get_optionsDATA()
             return '', metrics.options, metrics.value, activities.options, activities.types, year.options, year.value
 

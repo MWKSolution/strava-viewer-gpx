@@ -14,19 +14,16 @@ def is_gpx(filepath: str) -> bool:
         return False
 
     root = tree.getroot()
-
     # Check root tag is 'gpx' (strip namespace for comparison)
     tag = root.tag.split("}")[-1] if "}" in root.tag else root.tag
     if tag != "gpx":
         print(f"Root element is <{tag}>, not <gpx>")
         return False
-
     # Check namespace
     ns = root.tag.split("}")[0].lstrip("{") if "}" in root.tag else None
     if ns not in GPX_NAMESPACES:
         print(f"Namespace '{ns}' is not a valid GPX namespace")
         return False
-
     # Check version attribute
     version = root.get("version")
     if version not in ("1.0", "1.1"):
@@ -35,15 +32,3 @@ def is_gpx(filepath: str) -> bool:
 
     print(f"Valid GPX {version} document")
     return True
-
-
-def format_time(seconds):
-    """Format time given in seconds."""
-    h, remainder = divmod(int(seconds), 3600)
-    m, s = divmod(remainder, 60)
-    return f"{h:02d}:{m:02d}:{s:02d}"
-
-def format_distance(meters, decimals=2):
-    """Format distance given in meters."""
-    km = meters / 1000
-    return f"{km:.{decimals}f} km"

@@ -1,3 +1,6 @@
-## To Do list  
-1. sprawdzić wszystkie funkcje w strava_data.py
-2. wczytywanie danych z csv ze sprawdzeniem duplikatów
+## To Do list
+3. download eng ver of csv
+4. check eng ver csv loading to database
+5. update readme.md
+6. update comments
+7. license
