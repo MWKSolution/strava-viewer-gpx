@@ -19,9 +19,9 @@ def get_chart(df, metrics, activity, year):
         barchart.add_trace(go.Bar(
             x=dfa[x],
             y=dfa[metrics],
-            customdata=dfa['id'],
+            customdata=dfa['day'],
             name=i,
-            hovertemplate="%{y:.3s} %{customdata}",
+            hovertemplate="%{y:.3s} : %{customdata}",
             showlegend=True))
     barchart.update_layout(barmode='stack',
                            plot_bgcolor='rgba(200,200,200,1)',  # Transparent plot area
