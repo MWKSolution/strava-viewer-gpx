@@ -19,10 +19,20 @@ def get_chart(df, metrics, activity, year):
         barchart.add_trace(go.Bar(
             x=dfa[x],
             y=dfa[metrics],
+            customdata=dfa['id'],
             name=i,
-            hovertemplate='%{y:.3s}',
+            hovertemplate="%{y:.3s} %{customdata}",
             showlegend=True))
     barchart.update_layout(barmode='stack',
+                           plot_bgcolor='rgba(200,200,200,1)',  # Transparent plot area
+                           paper_bgcolor='rgba(150,150,150,1)',  # Transparent paper area
+                           margin=dict(
+                               l=40,  # left   (default 80)
+                               r=10,  # right  (default 80)
+                               t=40,  # top    (default 100)
+                               b=40,  # bottom (default 80)
+                               pad=0  # extra padding between axis lines and plot area (default 0)
+                           ),
                            xaxis=dict(title=x.capitalize(),
                                       dtick=1),
                            yaxis=dict(title=metrics.capitalize(),
