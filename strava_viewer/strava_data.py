@@ -168,7 +168,8 @@ class StravaData:
         if year != 'All':
             df = df[df['year'] == int(year)]
         df = df[df['type'].isin(activity)]
-        return get_chart(df, metrics, activity, year)
+        _total = df[metrics].sum()
+        return _total, get_chart(df, metrics, activity, year)
 
 
 if __name__ == '__main__':

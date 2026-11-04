@@ -1,4 +1,5 @@
 from dash import Input, Output
+from strava_viewer.activities_options import form_total
 
 
 def get_callbacks(app, data):
@@ -36,12 +37,13 @@ def get_callbacks(app, data):
             metrics, activities, year = data.get_optionsDATA()
             return '', metrics.options, metrics.value, activities.options, activities.types, year.options, year.value
 
-    @app.callback(Output('bar-chart', 'figure'),
+    @app.callback([Output('bar-chart', 'figure'),
+                   Output('total', 'children')],
                   [Input('metrics-input', 'value'),
                    Input('activity-input', 'value'),
                    Input('years-input', 'value')],
                   prevent_initial_call=True)
     def show_bar_chart(metrics, activity, year):
         """Callback updates barchart when changes to metrics or activities or year are made."""
-        barchart = data.get_chartDATA(metrics, activity, year)
-        return barchart
+        total, barchart = data.get_chartDATA(metrics, activity, year)
+        return barchart, form_total(total)

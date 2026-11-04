@@ -2,7 +2,7 @@
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
-from strava_viewer.activities_options import Metric, Activity, Year
+from strava_viewer.activities_options import Metric, Activity, Year, form_total
 
 
 def get_chart(df, metrics, activity, year):
@@ -59,12 +59,13 @@ class Layout:
         self.data = data
         if self.data.acts_data_present():
             self.metrics, self.activities, self.year = self.data.get_optionsDATA()
-            self.barchart = self.data.get_chartDATA(self.metrics.value, self.activities.types, self.year.value)
+            self.total, self.barchart = self.data.get_chartDATA(self.metrics.value, self.activities.types, self.year.value)
         else:
             self.barchart = {'data': [], 'layout': {}, 'frames': [], }
-            self.metrics = Metric(types=[], options=[], value='')
+            self.metrics = Metric(types=[], options=[], value='', unit='')
             self.activities = Activity(types=[], options=[], value='')
             self.year = Year(types=[], options=[], value='')
+            self.total = 0.0
 
     def __call__(self):
         """Makes instance callable.
@@ -140,10 +141,21 @@ class Layout:
         type='submit',
         className='m-4')
 
+    def totall(self):
+        _total = html.Div([
+            dbc.Alert(form_total(self.total), color='secondary', className='m-2', id="total")
+        ])
+        return _total
+
+
     def main_layout(self):
         _main = html.Div([
             dbc.Row([
-                dbc.Col([self.metricsl(), self.activityl(), self.load_button_gpx, self.load_button_csv],
+                dbc.Col([self.metricsl(),
+                         self.totall(),
+                         self.activityl(),
+                         self.load_button_gpx,
+                         self.load_button_csv],
                         width=2),
                 dbc.Col([self.fig()], width=8),
                 dbc.Col([self.interval()],
